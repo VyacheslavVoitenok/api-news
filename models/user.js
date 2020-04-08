@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const Mongoose = require('mongoose');
 const validator = require('validator');
 
-const userSchema = new mongoose.Schema({
-    email: {
+const userSchema = new Mongoose.Schema({
+	email: {
 		type: String,
 		validate: {
 			validator(link) {
@@ -11,17 +11,19 @@ const userSchema = new mongoose.Schema({
 		},
 		required: true,
 		unique: true,
-    },
-    password: {
+	},
+	password: {
 		type: String,
 		required: true,
 		minlength: 8,
 		select: false,
-    },
-    name: {
-        type: String,
+	},
+	name: {
+		type: String,
 		minlength: 2,
 		maxlength: 30,
 		required: true,
-    }
+	},
 });
+
+module.exports = Mongoose.model('user', userSchema);
