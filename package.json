@@ -1,6 +1,6 @@
 {
   "name": "api_news",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple express.js server for a news website",
   "main": "app.js",
   "scripts": {
