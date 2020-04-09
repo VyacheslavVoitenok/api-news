@@ -4,6 +4,7 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 const ConflictError = require('../utils/errors/ConflictError');
 const BadRequestError = require('../utils/errors/BadRequestError');
 
+// получить информацию о себе
 module.exports.getUser = (req, res, next) => {
 	User.findById(req.user._id)
 		.then((user) => {
@@ -19,11 +20,9 @@ module.exports.createUser = async (req, res, next) => {
 	try {
 		const user = await User.findOne({ email });
 		if (user) throw new ConflictError('Пользователь с таким email уже зарегистрирован');
-
 		if (password.length < 8) throw new BadRequestError('Длина пароля должна быть не менее 8 символов');
 
 		const hash = await bcrypt.hash(password, 10);
-
 		const newUser = await User.create({
 			email, password: hash, name,
 		});
@@ -41,3 +40,4 @@ module.exports.createUser = async (req, res, next) => {
 		return next(error);
 	}
 };
+
