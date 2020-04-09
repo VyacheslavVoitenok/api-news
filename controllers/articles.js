@@ -22,12 +22,14 @@ module.exports.createArticle = (req, res, next) => {
 	Article.create({
 		keyword, title, text, date, source, link, image, owner: ownerId,
 	})
-		.then(() => res.status(201).send({ message: 'Новость сохранена в личный кабинет' }))
-		.catch(next);
+		.then((article) => {
+			res.status(201).send({ message: 'Новость сохранена в личный кабинет', article})
+		})
+		.catch(err => console.log(err));
 };
 
 module.exports.deleteArticle = (req, res, next) => {
-	Article.findOne({ _id: req.params.id })
+	Article.findOne({ _id: req.params.id }).select('+owner')
 		.then((result) => {
 			if (!result) throw new NotFoundError('Карточки с таким id не нашлось');
 

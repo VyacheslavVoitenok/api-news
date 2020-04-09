@@ -40,4 +40,3 @@ module.exports.createUser = async (req, res, next) => {
 		return next(error);
 	}
 };
-

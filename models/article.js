@@ -26,7 +26,7 @@ const articleSchema = new Mongoose.Schema({
 		type: String,
 		validate: {
 			validator(link) {
-				return validator.isUrl(link);
+				return validator.isURL(link);
 			},
 		},
 		required: true,
@@ -35,7 +35,7 @@ const articleSchema = new Mongoose.Schema({
 		type: String,
 		validate: {
 			validator(link) {
-				return validator.isUrl(link);
+				return validator.isURL(link);
 			},
 		},
 		required: true,
@@ -44,7 +44,7 @@ const articleSchema = new Mongoose.Schema({
 		type: Mongoose.Schema.Types.ObjectId,
 		ref: 'user',
 		required: true,
-		select: false,
+		select: false
 	},
 });
 
