@@ -44,7 +44,7 @@ const articleSchema = new Mongoose.Schema({
 		type: Mongoose.Schema.Types.ObjectId,
 		ref: 'user',
 		required: true,
-		select: false
+		select: false,
 	},
 });
 

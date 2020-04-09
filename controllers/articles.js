@@ -3,9 +3,9 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 const AccessForbiddenError = require('../utils/errors/AccessForbiddenError');
 
 module.exports.getArticles = (req, res, next) => {
-	Article.find({})
+	Article.find({owner: req.user._id})
 		.then((result) => {
-			if (!result) {
+			if (result.length === 0) {
 				throw new NotFoundError('Вы еще не сохранили ни одной статьи');
 			}
 			res.status(200).send({ data: result });
@@ -22,10 +22,13 @@ module.exports.createArticle = (req, res, next) => {
 	Article.create({
 		keyword, title, text, date, source, link, image, owner: ownerId,
 	})
-		.then((article) => {
-			res.status(201).send({ message: 'Новость сохранена в личный кабинет', article})
+		.then(({ _doc }) => {
+			const newArticle = _doc;
+			delete newArticle.owner;
+
+			res.status(201).send({ message: 'Новость сохранена в личный кабинет', newArticle });
 		})
-		.catch(err => console.log(err));
+		.catch(next);
 };
 
 module.exports.deleteArticle = (req, res, next) => {

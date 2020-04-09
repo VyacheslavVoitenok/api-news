@@ -1,11 +1,12 @@
 const router = require('express').Router();
+const { errors } = require('celebrate');
 const users = require('./users');
 const articles = require('./articles');
 const registration = require('./registration');
 const authorization = require('./authorization');
+const unexistedRoute = require('./unexistedRoute');
 const errorHandler = require('../middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
-const { errors } = require('celebrate');
 
 router.use(requestLogger);
 
@@ -13,6 +14,8 @@ router.use('/signup', registration);
 router.use('/signin', authorization);
 router.use('/users', users);
 router.use('/articles', articles);
+
+router.use('*', unexistedRoute);
 
 router.use(errorLogger);
 router.use(errors());
