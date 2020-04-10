@@ -27,15 +27,11 @@ module.exports.createUser = async (req, res, next) => {
 			email, password: hash, name,
 		});
 
-		return res.status(201).send({
-			data: {
-				_id: newUser._id,
-				name: newUser.name,
-				about: newUser.about,
-				avatar: newUser.avatar,
-				email: newUser.email,
-			},
-		});
+		const { _doc } = newUser; // вытаскиваем объект, в котором хранится инфа о пользователе (проверить можно через console.dir(newUser) )
+
+		delete _doc.password;
+
+		return res.status(201).send({data: _doc});
 	} catch (error) {
 		return next(error);
 	}
