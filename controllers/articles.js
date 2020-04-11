@@ -3,7 +3,7 @@ const NotFoundError = require('../utils/errors/NotFoundError');
 const AccessForbiddenError = require('../utils/errors/AccessForbiddenError');
 
 module.exports.getArticles = (req, res, next) => {
-	Article.find({owner: req.user._id})
+	Article.find({ owner: req.user._id })
 		.then((result) => {
 			if (result.length === 0) {
 				throw new NotFoundError('Вы еще не сохранили ни одной статьи');
