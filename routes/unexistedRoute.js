@@ -1,8 +1,8 @@
-// если запрошен несуществующий ресурс
 const router = require('express').Router();
+const NotFoundError = require('../utils/errors/NotFoundError');
 
-router.all('*', (req, res) => {
-	res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+router.all('*', (req, res, next) => {
+	next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
 
 module.exports = router;

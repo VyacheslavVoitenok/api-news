@@ -27,11 +27,9 @@ module.exports.createUser = async (req, res, next) => {
 			email, password: hash, name,
 		});
 
-		const { _doc } = newUser; // вытаскиваем объект, в котором хранится инфа о пользователе (проверить можно через console.dir(newUser) )
-
+		const { _doc } = newUser;
 		delete _doc.password;
-
-		return res.status(201).send({data: _doc});
+		return res.status(201).send({ data: _doc });
 	} catch (error) {
 		return next(error);
 	}
